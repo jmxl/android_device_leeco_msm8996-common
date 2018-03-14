@@ -786,12 +786,6 @@ service tlocd /system/bin/tloc_daemon
     user system
     group drmrpc gps net_raw
 
-service energy-awareness /vendor/bin/energy-awareness
-    class main
-    user root
-    group system
-    oneshot
-
 service mdtpd /vendor/bin/mdtpd
     class late_start
     user root
