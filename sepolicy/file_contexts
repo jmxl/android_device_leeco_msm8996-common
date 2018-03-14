@@ -26,3 +26,6 @@
 /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input2/0dbutton        u:object_r:touchpanel_file:s0
 
 /data/misc/tloc(/.*)?                                                    u:object_r:tlocd_data_file:s0
+
+# Power management
+/sys/module/lpm_levels/parameters(/.*)?                             u:object_r:sysfs_power_management:s0
