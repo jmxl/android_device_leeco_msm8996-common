@@ -103,10 +103,10 @@ on enable-low-power
     setprop sys.io.scheduler "cfq"
 
     # VM
-    write /proc/sys/vm/dirty_background_ratio 20
-    write /proc/sys/vm/dirty_expire_centisecs 100
-    write /proc/sys/vm/swappiness 5
-    write /proc/sys/vm/vfs_cache_pressure 60
+    #write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/vfs_cache_pressure 10
+    write /proc/sys/vm/dirty_ratio 20
+    write /proc/sys/vm/dirty_background_ratio 5
 
     # Starting io prefetcher service
     start iop
@@ -118,7 +118,7 @@ on enable-low-power
     write /dev/cpuset/system-background/cpus 0-2
 
     # Enable sched boost
-     write /proc/sys/kernel/sched_boost 1
+    write /proc/sys/kernel/sched_boost 1
 
     # Set light thermal restrictions while optimizing apps
     # [throttle_freq_LITTLE, throttle_freq_big, throttle_temp, unthrottle_temp]
