@@ -51,6 +51,12 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/up_rate_limit_us 250
     write /sys/devices/system/cpu/cpu2/cpufreq/schedutil/down_rate_limit_us 1500
 
+    write /sys/module/cpu_boost/parameters/dynamic_stune_boost 1
+
+    # Disable sched_boost after boot complete
+    write /proc/sys/kernel/sched_boost 0
+    # write /proc/sys/kernel/sched_autogroup_enabled 0
+
     # Enable Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
@@ -103,7 +109,7 @@ on enable-low-power
     setprop sys.io.scheduler "cfq"
 
     # VM
-    #write /proc/sys/vm/swappiness 100
+    #write /proc/sys/vm/swappiness 35
     write /proc/sys/vm/vfs_cache_pressure 10
     write /proc/sys/vm/dirty_ratio 20
     write /proc/sys/vm/dirty_background_ratio 5
@@ -118,7 +124,7 @@ on enable-low-power
     write /dev/cpuset/system-background/cpus 0-2
 
     # Enable sched boost
-    write /proc/sys/kernel/sched_boost 1
+    #write /proc/sys/kernel/sched_boost 1
 
     # Set light thermal restrictions while optimizing apps
     # [throttle_freq_LITTLE, throttle_freq_big, throttle_temp, unthrottle_temp]
