@@ -312,13 +312,13 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service.leeco \
+    android.hardware.power@1.0-service.leeco
 
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.power=leeco
 
 # Dumpstate HAL
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.gemini
+    android.hardware.dumpstate@1.0-service.leeco
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
