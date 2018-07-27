@@ -763,12 +763,10 @@ service ppd /vendor/bin/mm-pp-dpps
 service perfd /vendor/bin/perfd
    class main
    user root
-   group root system
-   writepid /dev/cpuset/system-background/tasks
+   group root readproc
    disabled
-
-on property:sys.post_boot.parsed=1
-    start perfd
+   socket perfd seqpacket 0666 root system
+   writepid /dev/cpuset/system-background/tasks
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
@@ -796,6 +794,7 @@ service fossctl /system/bin/ppd foss:on
 
 on property:sys.boot_completed=1
     start fossctl
+    start perfd
 
 service tlocd /system/bin/tloc_daemon
     class late_start

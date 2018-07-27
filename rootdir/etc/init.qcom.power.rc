@@ -66,6 +66,7 @@ on enable-low-power
     # Disable sched_boost after boot complete
     write /proc/sys/kernel/sched_boost 0
     # write /proc/sys/kernel/sched_autogroup_enabled 0
+    write /sys/module/msm_performance/parameters/touchboost 0
 
     # Enable Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
@@ -110,6 +111,9 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/governor "mem_latency"
     write /sys/class/devfreq/soc:qcom,memlat-cpu2/polling_interval 10
     write /sys/class/devfreq/soc:qcom,mincpubw/governor "cpufreq"
+
+    chmod 0644 /sys/module/workqueue/parameters/power_efficient
+    write /sys/module/workqueue/parameters/power_efficient Y
 
     # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
