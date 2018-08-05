@@ -93,6 +93,8 @@ on enable-low-power
     chmod 0644 /sys/module/workqueue/parameters/power_efficient
     write /sys/module/workqueue/parameters/power_efficient Y
 
+on property:dev.bootcomplete=1
+
     # Enable UFS powersaving
     write /sys/devices/soc/${ro.boot.bootdevice}/clkscale_enable 1
     write /sys/devices/soc/${ro.boot.bootdevice}/clkgate_enable 1
