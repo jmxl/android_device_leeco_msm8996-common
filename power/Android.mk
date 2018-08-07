@@ -43,6 +43,8 @@ ifeq ($(TARGET_USES_LAUNCH_BOOST),true)
     LOCAL_CFLAGS += -DLAUNCH_HINTS
 endif
 
+LOCAL_HEADER_LIBRARIES := libhardware_headers
+
 LOCAL_SHARED_LIBRARIES := \
     libbase \
     libcutils \
@@ -51,7 +53,6 @@ LOCAL_SHARED_LIBRARIES := \
     liblog \
     libutils \
     android.hardware.power@1.0
-
 
 include $(BUILD_EXECUTABLE)
 endif
