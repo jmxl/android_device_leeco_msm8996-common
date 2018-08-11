@@ -70,6 +70,9 @@ PRODUCT_CHARACTERISTICS := nosdcard
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
+# Vendor properties
+-include $(LOCAL_PATH)/vendor_prop.mk
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
