@@ -245,10 +245,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>android.hardware.usb</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -258,7 +254,7 @@
         </interface>
     </hal>
     <hal format="hidl">
-      <name>android.hardware.vibrator</name>
+        <name>android.hardware.vibrator</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
@@ -495,3 +491,4 @@
         </interface>
     </hal>
 </manifest>
+
