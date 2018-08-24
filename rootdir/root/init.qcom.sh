@@ -297,27 +297,41 @@ echo 1 > /data/misc/radio/db_check_done
 #
 # Make modem config folder and copy firmware config to that folder for RIL
 #
-if [ -f /data/misc/radio/ver_info.txt ]; then
-    prev_version_info=`cat /data/misc/radio/ver_info.txt`
+if [ -f /data/vendor/radio/ver_info.txt ]; then
+    prev_version_info=`cat /data/vendor/radio/ver_info.txt`
 else
     prev_version_info=""
 fi
 
 cur_version_info=`cat /firmware/verinfo/ver_info.txt`
 if [ ! -f /firmware/verinfo/ver_info.txt -o "$prev_version_info" != "$cur_version_info" ]; then
-    rm -rf /data/misc/radio/modem_config
-    mkdir /data/misc/radio/modem_config
-    chmod 770 /data/misc/radio/modem_config
-    cp -r /firmware/image/modem_pr/mcfg/configs/* /data/misc/radio/modem_config
-    chown -hR radio.radio /data/misc/radio/modem_config
-    cp /firmware/verinfo/ver_info.txt /data/misc/radio/ver_info.txt
-    chown radio.radio /data/misc/radio/ver_info.txt
+    rm -rf /data/vendor/radio/modem_config
+    mkdir /data/vendor/radio/modem_config
+    chmod 770 /data/vendor/radio/modem_config
+#[Begin][ZUKMT-164][renrm1][20171020] Modify default mbn location
+    #cp -r /firmware/image/modem_pr/mcfg/configs/* /data/vendor/radio/modem_config
+    cp -r /firmware/image/modem_pr/mcfg/fancy_co/* /data/vendor/radio/modem_config
+#[End][ZUKMT-164][renrm1][20171020] Modify default mbn location
+    chown -hR radio.radio /data/vendor/radio/modem_config
+    cp /firmware/verinfo/ver_info.txt /data/vendor/radio/ver_info.txt
+    chown radio.radio /data/vendor/radio/ver_info.txt
 fi
-cp /firmware/image/modem_pr/mbn_ota.txt /data/misc/radio/modem_config
-chown radio.radio /data/misc/radio/modem_config/mbn_ota.txt
-echo 1 > /data/misc/radio/copy_complete
+cp /firmware/image/modem_pr/mbn_ota.txt /data/vendor/radio/modem_config
+chown radio.radio /data/vendor/radio/modem_config/mbn_ota.txt
+echo 1 > /data/vendor/radio/copy_complete
 
-                            if [ -f /data/system/users/0/settings_global.xml ]; then
-			    sed -i 's/"multi_sim_data_call" value="1"/"multi_sim_data_call" value="-1"/g' /data/system/users/0/settings_global.xml
-			    restorecon /data/system/users/0/settings_global.xml
-                            fi
+MemTotalStr=`cat /proc/meminfo | grep MemTotal`
+MemTotal=${MemTotalStr:16:8}
+
+if [ $MemTotal -lt 5242880 ]; then
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
+    echo never > /sys/kernel/mm/transparent_hugepage/defrag
+else
+    echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+    echo madvise > /sys/kernel/mm/transparent_hugepage/defrag
+fi
+
+if [ -f /data/system/users/0/settings_global.xml ]; then
+    sed -i 's/"multi_sim_data_call" value="1"/"multi_sim_data_call" value="-1"/g' /data/system/users/0/settings_global.xml
+    restorecon /data/system/users/0/settings_global.xml
+fi
