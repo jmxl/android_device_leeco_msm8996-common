@@ -243,8 +243,8 @@ static int process_video_encode_hint(void *metadata)
 
 static int process_activity_launch_hint(void *data)
 {
-    // boost will timeout in 1.5s
-    int duration = 1500;
+    // boost will timeout in 3s
+    int duration = 3000;
     ATRACE_BEGIN("launch");
     if (sustained_performance_mode || vr_mode) {
         ATRACE_END();
