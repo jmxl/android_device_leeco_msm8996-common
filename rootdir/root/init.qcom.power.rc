@@ -110,7 +110,7 @@ on property:dev.bootcomplete=1
     write /dev/stune/schedtune.sched_boost 30
     write /dev/stune/rt/schedtune.sched_boost 50
 
-    setprop sys.io.scheduler "bfq"
+    setprop sys.io.scheduler "cfq"
 
     # VM
     #write /proc/sys/vm/swappiness 35
